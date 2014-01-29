@@ -393,7 +393,11 @@ L.Draw.Polyline = L.Draw.Feature.extend({
 
     _onTouchStart: function (e) {
         var touch = e.touches[0];
-        var latlng = this._map.mouseEventToLatLng({pageX: touch.pageX, pageY: touch.pageY});
+        try {
+            var latlng = this._map.mouseEventToLatLng(touch);
+        } catch(err) {
+            var latlng = this._map.mouseEventToLatLng({pageX: touch.pageX, pageY: touch.pageY});
+        }
         this._mouseMarker.setLatLng(latlng);
         this.addVertex(latlng);
     },
